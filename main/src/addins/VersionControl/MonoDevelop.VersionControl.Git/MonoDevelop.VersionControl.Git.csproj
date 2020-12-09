@@ -1,22 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\..\..\MonoDevelop.props" />
+  <Import Project="$(RootDirectory)\MonoDevelop.props" />
   <Import Project="$(ReferencesGtk)" />
   <PropertyGroup>
     <TargetFramework>$(MDTargetFramework)</TargetFramework>
     <ProjectGuid>{0413DB7D-8B35-423F-9752-D75C9225E7DE}</ProjectGuid>
-    <OutputPath>..\..\..\..\build\AddIns\VersionControl</OutputPath>
-    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <OutputPath>$(RootDirectory)\build\AddIns\VersionControl\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <DefineConstants>$(DefineConstants);NoSshUserKeyCredentials</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\core\MonoDevelop.Core\MonoDevelop.Core.csproj" />
-    <ProjectReference Include="..\..\..\core\MonoDevelop.Ide\MonoDevelop.Ide.csproj" />
     <ProjectReference Include="..\MonoDevelop.VersionControl\MonoDevelop.VersionControl.csproj" />
-    <ProjectReference Include="..\..\..\..\external\xwt\Xwt\Xwt.csproj" />
-    <ProjectReference Include="..\..\..\..\external\mono-addins\Mono.Addins\Mono.Addins.csproj" />
-    <ProjectReference Include="..\..\..\..\external\nrefactory\ICSharpCode.NRefactory\ICSharpCode.NRefactory.csproj" />
-    <ProjectReference Include="..\..\MonoDevelop.SourceEditor2\MonoDevelop.SourceEditor.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="MonoDevelop.VersionControl.Git.Win32.addin.xml" />
+    <None Update="GitIgnore.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'DebugWin32' OR '$(Configuration)' == 'ReleaseWin32' ">
     <EmbeddedResource Include="MonoDevelop.VersionControl.Git.Win32.addin.xml" />
@@ -25,10 +24,17 @@
     <InternalsVisibleTo Include="MonoDevelop.VersionControl.Git.Tests" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0096" />
+    <PackageReference Include="LibGit2Sharp" Version="0.27.0-preview-0096" PrivateAssets="all" GeneratePathProperty="true">
+<!--      <IncludeAssets>compile;runtime</IncludeAssets>-->
+     <IncludeAssets>all</IncludeAssets>
+
+    </PackageReference>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="CopyLibGit2Sharp" AfterTargets="Build">
+    <Copy SourceFiles="$(PkgLibGit2Sharp)\lib\netstandard2.0\LibGit2Sharp.dll;" DestinationFiles="$(OutputPath)\LibGit2Sharp.dll;" />
+  </Target>
 </Project>

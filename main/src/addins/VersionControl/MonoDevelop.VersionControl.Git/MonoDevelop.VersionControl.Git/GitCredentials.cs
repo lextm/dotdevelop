@@ -119,6 +119,8 @@ namespace MonoDevelop.VersionControl.Git
 			state.UrlUsed = url;
 			Credentials cred = null;
 
+#if SshUserKeyCredentials
+
 			if ((types & SupportedCredentialTypes.Ssh) != 0) {
 				// Try ssh-agent on Linux.
 				if (!Platform.IsWindows && !state.AgentUsed) {
@@ -146,7 +148,6 @@ namespace MonoDevelop.VersionControl.Git
 							Passphrase = string.Empty
 						};
 						cred = sshCred;
-
 						if (XwtCredentialsDialog.Run (url, SupportedCredentialTypes.Ssh, cred).Result) {
 							keyIndex = Keys.IndexOf (sshCred.PrivateKey);
 							if (keyIndex < 0) {
@@ -185,7 +186,7 @@ namespace MonoDevelop.VersionControl.Git
 
 				return cred;
 			}
-
+#endif
 			// We always need to run the TryGet* methods as we need the passphraseItem/passwordItem populated even
 			// if the password store contains an invalid password/no password
 			if ((types & SupportedCredentialTypes.UsernamePassword) != 0) {
@@ -239,7 +240,7 @@ namespace MonoDevelop.VersionControl.Git
 				return GitCredentialsProviderResult.NotFound;
 
 			var (result, credentials) = Task.Run (() => gitCredentialsProvider.TryGetCredentialsAsync (uri)).Result;
-		
+
 			if (result == GitCredentialsProviderResult.Found) {
 				((UsernamePasswordCredentials)cred).Username = credentials.Username;
 				((UsernamePasswordCredentials)cred).Password = credentials.Password;

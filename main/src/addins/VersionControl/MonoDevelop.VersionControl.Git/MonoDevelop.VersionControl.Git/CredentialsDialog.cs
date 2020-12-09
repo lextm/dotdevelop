@@ -60,10 +60,14 @@ namespace MonoDevelop.VersionControl.Git
 					username.Set (firstEditor.Text);
 				};
 				break;
+
+#if SshUserKeyCredentials
+
 			case SupportedCredentialTypes.Ssh:
 				sshcred = (SshUserKeyCredentials)cred;
 				firstEditor = CreateEntry (table, GettextCatalog.GetString ("Passphrase:"), true);
 				break;
+#endif
 			}
 			table.ShowAll ();
 

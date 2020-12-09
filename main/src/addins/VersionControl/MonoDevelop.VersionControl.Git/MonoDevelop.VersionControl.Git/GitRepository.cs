@@ -2319,7 +2319,12 @@ namespace MonoDevelop.VersionControl.Git
 				var status = repository.RetrieveStatus (gitPath);
 				if (status != FileStatus.NewInIndex && status != FileStatus.NewInWorkdir) {
 					lock (blameLock) {
-						foreach (var hunk in repository.Blame (gitPath, new BlameOptions { FindExactRenames = true, StartingAt = sinceCommit })) {
+						foreach (var hunk in repository.Blame (gitPath, new BlameOptions {
+#if SshUserKeyCredentials
+							FindExactRenames = true,
+#endif
+							StartingAt = sinceCommit
+						})) {
 							var commit = hunk.FinalCommit;
 							var author = hunk.FinalSignature;
 							var working = new Annotation (new GitRevision (this, gitPath, commit), author.Name, author.When.LocalDateTime, String.Format ("<{0}>", author.Email));

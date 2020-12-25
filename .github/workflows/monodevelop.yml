@@ -20,20 +20,20 @@ jobs:
     - name: Dependencies
       run: |
         apt-get update
-        apt-get -y install sudo        
+        apt-get install -y sudo        
         sudo apt-get update
-        sudo apt-get install wget
+        sudo apt-get install -y wget
         wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         sudo dpkg -i packages-microsoft-prod.deb
         sudo apt-get update
         sudo apt-get install -y apt-transport-https
         sudo apt-get update
         sudo apt-get install -y dotnet-sdk-3.1
-        sudo apt-get install gnupg ca-certificates
+        sudo apt-get install -y gnupg ca-certificates
         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
         echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
-        sudo apt-get -y install build-essential intltool fsharp gtk-sharp2
+        sudo apt-get install -y build-essential intltool fsharp gtk-sharp2
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -48,20 +48,20 @@ jobs:
     - name: Dependencies
       run: |
         apt-get update
-        apt-get -y install sudo        
+        apt-get install -y sudo        
         sudo apt-get update
-        sudo apt-get install wget
+        sudo apt-get install -y wget
         wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         sudo dpkg -i packages-microsoft-prod.deb
         sudo apt-get update
         sudo apt-get install -y apt-transport-https
         sudo apt-get update
         sudo apt-get install -y dotnet-sdk-3.1
-        sudo apt-get install gnupg ca-certificates
+        sudo apt-get install -y gnupg ca-certificates
         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
         echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
-        apt-get -y install build-essential intltool fsharp gtk-sharp2
+        apt-get install -y build-essential intltool fsharp gtk-sharp2
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -76,20 +76,20 @@ jobs:
     - name: Dependencies
       run: |
         apt-get update
-        apt-get -y install sudo        
+        apt-get install -y sudo        
         sudo apt-get update
-        sudo apt-get install wget
+        sudo apt-get install -y wget
         wget https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
         sudo dpkg -i packages-microsoft-prod.deb
         sudo apt-get update
         sudo apt-get install -y apt-transport-https
         sudo apt-get update
         sudo apt-get install -y dotnet-sdk-3.1
-        sudo apt-get install gnupg ca-certificates
+        sudo apt-get install -y gnupg ca-certificates
         sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
         echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
-        apt-get -y install build-essential intltool fsharp gtk-sharp2
+        apt-get install -y build-essential intltool fsharp gtk-sharp2
     - name: Configure and build
       run: |
         ./configure --profile=gnome

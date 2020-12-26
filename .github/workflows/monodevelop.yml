@@ -36,6 +36,33 @@ jobs:
         ./configure --profile=gnome
         make
 
+  centos7:
+    runs-on: ubuntu-latest
+    container:
+      image: "centos:centos7"
+    steps:
+    - name: Dependencies
+      run: |
+        yum update -y
+        yum install -y sudo
+        sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+        sudo yum install -y dotnet-sdk-3.1
+        rpmkeys --import "http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x3fa7e0328081bff6a14da29aa6a19b38d3d831ef"
+        su -c 'curl https://download.mono-project.com/repo/centos7-stable.repo | tee /etc/yum.repos.d/mono-centos7-stable.repo'
+        sudo yum install -y gtk-sharp2 glade-sharp2 monodoc-core
+        sudo yum group install -y "Development Tools"
+        sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+        sudo yum install -y git
+        git --version
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: true
+    - name: Configure and build
+      run: |
+        ./configure --profile=gnome
+        make
+
   ubuntu2004:  
     runs-on: ubuntu-latest
     container:

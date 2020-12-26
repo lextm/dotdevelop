@@ -17,6 +17,9 @@ jobs:
       image: "ubuntu:20.04"
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodule: true
     - name: Dependencies
       run: |
         apt-get update
@@ -34,7 +37,6 @@ jobs:
         echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
         sudo apt-get install -y sed git build-essential intltool fsharp gtk-sharp2
-        git submodule update --init --recursive
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -46,6 +48,9 @@ jobs:
       image: ubuntu:18.04
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodule: true
     - name: Dependencies
       run: |
         apt-get update
@@ -63,7 +68,6 @@ jobs:
         echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
         apt-get install -y sed git build-essential intltool fsharp gtk-sharp2
-        git submodule update --init --recursive
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -75,6 +79,9 @@ jobs:
       image: ubuntu:16.04
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodule: true
     - name: Dependencies
       run: |
         apt-get update
@@ -92,7 +99,6 @@ jobs:
         echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
         apt-get install -y sed git build-essential intltool fsharp gtk-sharp2
-        git submodule update --init --recursive
     - name: Configure and build
       run: |
         ./configure --profile=gnome

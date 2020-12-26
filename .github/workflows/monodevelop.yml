@@ -34,6 +34,7 @@ jobs:
         echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
         sudo apt-get install -y sed git build-essential intltool fsharp gtk-sharp2
+        git submodule update --init --recursive
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -62,6 +63,7 @@ jobs:
         echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
         apt-get install -y sed git build-essential intltool fsharp gtk-sharp2
+        git submodule update --init --recursive
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -90,6 +92,7 @@ jobs:
         echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
         sudo apt-get update
         apt-get install -y sed git build-essential intltool fsharp gtk-sharp2
+        git submodule update --init --recursive
     - name: Configure and build
       run: |
         ./configure --profile=gnome

@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        submodule: true
+        submodules: true
     - name: Dependencies
       run: |
         apt-get update
@@ -50,7 +50,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        submodule: true
+        submodules: true
     - name: Dependencies
       run: |
         apt-get update
@@ -81,7 +81,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-        submodule: true
+        submodules: true
     - name: Dependencies
       run: |
         apt-get update

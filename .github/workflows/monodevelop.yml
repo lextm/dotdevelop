@@ -22,7 +22,7 @@ jobs:
         dnf install -y sudo
         sudo dnf install -y dotnet-sdk-3.1
         rpmkeys --import "http://pool.sks-keyservers.net/pks/lookup?op=get&search=0x3fa7e0328081bff6a14da29aa6a19b38d3d831ef"
-        su -c 'curl https://download.mono-project.com/repo/centos8-stable.repo | tee /etc/yum.repos.d/mono-centos8-stable.repo'
+        su -c 'curl -k https://download.mono-project.com/repo/centos8-stable.repo | tee /etc/yum.repos.d/mono-centos8-stable.repo'
         sudo dnf install -y gtk-sharp2 glade-sharp2 monodoc-core git
         sudo dnf install -y fsharp --nobest
         sudo dnf group install -y "Development Tools"

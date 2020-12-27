@@ -55,6 +55,13 @@ jobs:
         sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
         sudo yum install -y git
         git --version
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: true
+    - name: Configure and build
+      run: |
+        ./configure --profile=gnome
         sudo yum install -y wget
         pushd /tmp
         wget http://ftp.gnu.org/gnu/make/make-4.1.tar.gz
@@ -66,13 +73,6 @@ jobs:
         popd
         export PATH=/usr/local/bin:$PATH
         make --version
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        submodules: true
-    - name: Configure and build
-      run: |
-        ./configure --profile=gnome
         make
 
   ubuntu2004:  

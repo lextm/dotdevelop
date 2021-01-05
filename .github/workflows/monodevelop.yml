@@ -26,11 +26,14 @@ jobs:
         sudo dnf install -y gtk-sharp2 glade-sharp2 monodoc-core git
         sudo dnf install -y fsharp --nobest
         sudo dnf group install -y "Development Tools"
-        git --version
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: true
+    - name: Verify toolchain versions
+      run: |
+        git --version
+        make --version
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -54,25 +57,29 @@ jobs:
         sudo yum group install -y "Development Tools"
         sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
         sudo yum install -y git
-        git --version
+        sudo yum install -y wget
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: true
-    - name: Configure and build
+    - name: Upgrade make
       run: |
-        ./configure --profile=gnome
-        sudo yum install -y wget
         pushd /tmp
-        wget http://ftp.gnu.org/gnu/make/make-4.1.tar.gz
-        tar xvf make-4.1.tar.gz
-        cd make-4.1/
+        wget http://ftp.gnu.org/gnu/make/make-4.2.1.tar.gz
+        tar xvf make-4.2.1.tar.gz
+        cd make-4.2.1/
         ./configure
         make
         sudo make install
         popd
         export PATH=/usr/local/bin:$PATH
+    - name: Verify toolchain versions
+      run: |
+        git --version
         make --version
+    - name: Configure and build
+      run: |
+        ./configure --profile=gnome
         make
 
   ubuntu2004:  
@@ -100,11 +107,14 @@ jobs:
         sudo add-apt-repository ppa:git-core/ppa -y
         sudo apt-get update
         sudo apt-get install -y git
-        git --version
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: true
+    - name: Verify toolchain versions
+      run: |
+        git --version
+        make --version
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -135,11 +145,25 @@ jobs:
         sudo add-apt-repository ppa:git-core/ppa -y
         sudo apt-get update
         sudo apt-get install -y git
-        git --version
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: true
+    - name: Upgrade make
+      run: |
+        pushd /tmp
+        wget http://ftp.gnu.org/gnu/make/make-4.2.1.tar.gz
+        tar xvf make-4.2.1.tar.gz
+        cd make-4.2.1/
+        ./configure
+        make
+        sudo make install
+        popd
+        export PATH=/usr/local/bin:$PATH
+    - name: Verify toolchain versions
+      run: |
+        git --version
+        make --version
     - name: Configure and build
       run: |
         ./configure --profile=gnome
@@ -170,11 +194,25 @@ jobs:
         sudo add-apt-repository ppa:git-core/ppa -y
         sudo apt-get update
         sudo apt-get install -y git
-        git --version
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
         submodules: true
+    - name: Upgrade make
+      run: |
+        pushd /tmp
+        wget http://ftp.gnu.org/gnu/make/make-4.2.1.tar.gz
+        tar xvf make-4.2.1.tar.gz
+        cd make-4.2.1/
+        ./configure
+        make
+        sudo make install
+        popd
+        export PATH=/usr/local/bin:$PATH
+    - name: Verify toolchain versions
+      run: |
+        git --version
+        make --version
     - name: Configure and build
       run: |
         ./configure --profile=gnome

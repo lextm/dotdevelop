@@ -26,18 +26,20 @@ jobs:
         sudo dnf install -y gtk-sharp2 glade-sharp2 monodoc-core git
         sudo dnf install -y fsharp --nobest
         sudo dnf group install -y "Development Tools"
+      shell: bash
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
         submodules: true
     - name: Verify toolchain versions
       run: |
         git --version
         make --version
+      shell: bash
     - name: Configure and build
       run: |
         ./configure --profile=gnome
         make
+      shell: bash
 
   centos7:
     runs-on: ubuntu-latest
@@ -58,9 +60,9 @@ jobs:
         sudo yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
         sudo yum install -y git
         sudo yum install -y wget
+      shell: bash
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
         submodules: true
     - name: Upgrade make
       run: |
@@ -73,14 +75,17 @@ jobs:
         sudo make install
         popd
         export PATH=/usr/local/bin:$PATH
+      shell: bash
     - name: Verify toolchain versions
       run: |
         git --version
         make --version
+      shell: bash
     - name: Configure and build
       run: |
         ./configure --profile=gnome
         make
+      shell: bash
 
   ubuntu2004:  
     runs-on: ubuntu-latest
@@ -107,18 +112,20 @@ jobs:
         sudo add-apt-repository ppa:git-core/ppa -y
         sudo apt-get update
         sudo apt-get install -y git
+      shell: bash
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
         submodules: true
     - name: Verify toolchain versions
       run: |
         git --version
         make --version
+      shell: bash
     - name: Configure and build
       run: |
         ./configure --profile=gnome
-        make    
+        make
+      shell: bash
 
   ubuntu1804:  
     runs-on: ubuntu-latest
@@ -145,9 +152,9 @@ jobs:
         sudo add-apt-repository ppa:git-core/ppa -y
         sudo apt-get update
         sudo apt-get install -y git
+      shell: bash
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
         submodules: true
     - name: Upgrade make
       run: |
@@ -160,14 +167,17 @@ jobs:
         sudo make install
         popd
         export PATH=/usr/local/bin:$PATH
+      shell: bash
     - name: Verify toolchain versions
       run: |
         git --version
         make --version
+      shell: bash
     - name: Configure and build
       run: |
         ./configure --profile=gnome
-        make    
+        make
+      shell: bash
 
   ubuntu1604:  
     runs-on: ubuntu-latest
@@ -196,7 +206,6 @@ jobs:
         sudo apt-get install -y git
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
         submodules: true
     - name: Upgrade make
       run: |
@@ -209,11 +218,14 @@ jobs:
         sudo make install
         popd
         export PATH=/usr/local/bin:$PATH
+      shell: bash
     - name: Verify toolchain versions
       run: |
         git --version
         make --version
+      shell: bash
     - name: Configure and build
       run: |
         ./configure --profile=gnome
-        make    
+        make
+      shell: bash 

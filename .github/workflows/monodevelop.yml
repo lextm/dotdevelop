@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  issue_comment:
+    types: [created, edited]
   push:
     branches:
       - '*'
@@ -13,6 +15,7 @@ on:
 jobs:
   ubuntu2004:  
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || (github.event_name == 'issue_comment' && github.event.comment.body == 'rerun CI' && github.event.actor.login == 'lextm')
     container:
       image: "ubuntu:20.04"
     steps:
@@ -54,6 +57,7 @@ jobs:
 
   ubuntu1804:  
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || (github.event_name == 'issue_comment' && github.event.comment.body == 'rerun CI' && github.event.actor.login == 'lextm')
     container:
       image: ubuntu:18.04
     steps:
@@ -95,6 +99,7 @@ jobs:
 
   ubuntu1604:  
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || (github.event_name == 'issue_comment' && github.event.comment.body == 'rerun CI' && github.event.actor.login == 'lextm')
     container:
       image: ubuntu:16.04
     steps:

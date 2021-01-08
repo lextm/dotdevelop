@@ -15,7 +15,7 @@ on:
 jobs:
   ubuntu2004:  
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event_name == 'pull_request' || (github.event_name == 'issue_comment' && github.event.comment.body == 'rerun CI' && github.event.actor.login == 'lextm')
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || (github.event.type == 'issue_comment' && github.event.comment.body == 'rerun CI')
     container:
       image: "ubuntu:20.04"
     steps:
